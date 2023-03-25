@@ -55,9 +55,6 @@ log(36, 'i dev:', 'ensuring required path exists')
 write(path_resolve(public_path, 'main.js'), '', '+ build:')
 mkdir(path_resolve('ts_outdir'), '+ build:')
 
-log(36, 'i dev:', 'building once')
-await build_js()
-
 log(36, 'i dev:', 'start watching')
 ts.createWatchProgram(
     ts.createWatchCompilerHost(
@@ -73,6 +70,9 @@ ts.createWatchProgram(
         }))
     )
 )
+
+log(36, 'i dev:', 'building once')
+await build_js()
 
 watch(path_resolve('ts_outdir'), name => /\.js$/i.test(name), async () => {
     await build_js()

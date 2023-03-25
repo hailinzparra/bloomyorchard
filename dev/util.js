@@ -15,7 +15,7 @@ const mkdir = (p, log_pre) => {
     if (!fs.existsSync(p)) {
         fs.mkdirSync(p)
         if (log_pre) {
-            log(32, log_pre, relative(p))
+            log(32, log_pre, path_relative(p))
         }
     }
 }
@@ -24,7 +24,7 @@ const write = (p, data = '', log_pre) => {
     if (!fs.existsSync(p)) {
         fs.writeFileSync(p, data)
         if (log_pre) {
-            log(32, log_pre, relative(p))
+            log(32, log_pre, path_relative(p))
         }
     }
 }

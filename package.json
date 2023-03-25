@@ -1,6 +1,7 @@
 {
     "type": "module",
     "scripts": {
+        "init": "npm i",
         "dev": "node dev/dev",
         "dev:prod": "node dev/dev --prod"
     },
