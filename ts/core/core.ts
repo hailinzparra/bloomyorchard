@@ -8,6 +8,7 @@ interface Core {
     stage: CoreStage
     input: CoreInput
     time: CoreTime
+    draw: CoreDraw
     scene: CoreSceneManager
     runner: CoreRunner
 }

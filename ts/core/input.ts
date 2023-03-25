@@ -70,17 +70,24 @@ core.input = {
     mouses: [],
     target_element: window,
     setup(input_target) {
+        this.target_element = input_target
+
+        // Create inputs
         for (let i = 0; i < 5; i++) {
             this.mouses.push(new CoreInputKey(i))
         }
+
+        // Setup events
         input_target.addEventListener('mouseup', e => {
             this.mouses[(e as MouseEvent).button].up()
             this.update_mouse((e as MouseEvent))
         })
+
         input_target.addEventListener('mousedown', e => {
             this.mouses[(e as MouseEvent).button].down()
             this.update_mouse((e as MouseEvent))
         })
+
         input_target.addEventListener('mousemove', e => {
             this.update_mouse((e as MouseEvent))
             this.is_moving_timeout_done = false

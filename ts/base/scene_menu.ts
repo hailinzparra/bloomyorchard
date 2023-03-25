@@ -5,5 +5,9 @@ scene_menu.start = () => {
 }
 
 scene_menu.update = () => {
-    console.log('menu update...')
+}
+
+scene_menu.render = () => {
+    // console.log(input.position)
+    draw.rect(input.mouse_x, input.mouse_y, 32, 32)
 }

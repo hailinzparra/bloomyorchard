@@ -6,7 +6,7 @@ scene_loading.start = () => {
 
 scene_loading.update = () => {
     console.log('update loading...')
-    if (core.time.t > 5000) {
-        core.scene.change_scene(scene_menu)
+    if (time.t > 0) {
+        scene.change_scene(scene_menu)
     }
 }

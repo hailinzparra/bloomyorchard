@@ -1,11 +1,15 @@
+'core/vec2'
+
 'core/core'
 'core/stage'
 'core/input'
 'core/time'
+'core/draw'
 'core/scene'
 'core/runner'
 'core/setup'
 
+'base/alias'
 'base/scene_loading'
 'base/scene_menu'
 'base/setup'
