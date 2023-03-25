@@ -7,6 +7,7 @@ class Fruit extends CoreObject {
     angle_deg: number = Math.random() * 360
     alpha: number = 1
     gravity: number = 0.42
+    hit_range: number = 100
     constructor(x: number, y: number, image_name: string) {
         super(x, y)
         this.image_name = image_name
@@ -19,7 +20,7 @@ class Fruit extends CoreObject {
         this.vy += this.gravity * time.scaled_dt
         this.angle_deg += this.vx * time.scaled_dt
     }
-    update() {
+    pre_update() {
         this.update_physics()
         if (this.y > stage.h) {
             obj.remove(this.id)
@@ -27,5 +28,8 @@ class Fruit extends CoreObject {
     }
     render() {
         draw.image_ext(this.image_name, this.x, this.y, this.xs, this.ys, this.angle_deg, this.alpha)
+        // draw.set_alpha(0.3)
+        // draw.circle(this.x, this.y, this.hit_range)
+        // draw.reset_alpha()
     }
 }

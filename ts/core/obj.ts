@@ -78,7 +78,7 @@ core.obj = {
     },
     take(...names) {
         let h: CoreObject[] = []
-        for (const name in names) {
+        for (const name of names) {
             h = h.concat(this.instances[this.get_index(name)])
         }
         return h
