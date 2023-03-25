@@ -8,6 +8,6 @@ scene_menu.update = () => {
 }
 
 scene_menu.render = () => {
-    // console.log(input.position)
+    console.log(input.position)
     draw.rect(input.mouse_x, input.mouse_y, 32, 32)
 }

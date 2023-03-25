@@ -1,7 +1,6 @@
 core.setup(
     'Bloomy Orchard',
     document.body,
-    window,
     scene_loading,
 )
 

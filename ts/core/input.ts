@@ -17,8 +17,7 @@ interface CoreInput {
     is_moving_timeout_done: boolean,
     is_mouse_moving: boolean
     mouses: CoreInputKey[]
-    target_element: Window | HTMLElement
-    setup(input_target: CoreInput['target_element']): void
+    setup(): void
     set_position(x: number, y: number): void
     set_mouse_position(x: number, y: number): void
     update_mouse(e: MouseEvent): void
@@ -68,27 +67,24 @@ core.input = {
     is_moving_timeout_done: true,
     is_mouse_moving: false,
     mouses: [],
-    target_element: window,
-    setup(input_target) {
-        this.target_element = input_target
-
+    setup() {
         // Create inputs
         for (let i = 0; i < 5; i++) {
             this.mouses.push(new CoreInputKey(i))
         }
 
         // Setup events
-        input_target.addEventListener('mouseup', e => {
+        window.addEventListener('mouseup', e => {
             this.mouses[(e as MouseEvent).button].up()
             this.update_mouse((e as MouseEvent))
         })
 
-        input_target.addEventListener('mousedown', e => {
+        window.addEventListener('mousedown', e => {
             this.mouses[(e as MouseEvent).button].down()
             this.update_mouse((e as MouseEvent))
         })
 
-        input_target.addEventListener('mousemove', e => {
+        window.addEventListener('mousemove', e => {
             this.update_mouse((e as MouseEvent))
             this.is_moving_timeout_done = false
             this.is_mouse_moving = true
@@ -107,16 +103,7 @@ core.input = {
         this.set_position(this.mouse_x, this.mouse_y)
     },
     update_mouse(e) {
-        let b
-        if ((this.target_element as HTMLElement).getBoundingClientRect) {
-            b = (this.target_element as HTMLElement).getBoundingClientRect()
-        }
-        else {
-            b = {
-                x: 0,
-                y: 0,
-            }
-        }
+        const b = core.stage.canvas.getBoundingClientRect()
         this.set_mouse_position(e.clientX - b.x, e.clientY - b.y)
     },
     mouse_up(button) {
