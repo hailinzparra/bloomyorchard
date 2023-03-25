@@ -7,9 +7,11 @@
 'core/draw'
 'core/scene'
 'core/runner'
+'core/loader'
 'core/setup'
 
 'base/alias'
+'base/load'
 'base/scene_loading'
 'base/scene_menu'
 'base/setup'

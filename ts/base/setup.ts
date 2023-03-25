@@ -4,4 +4,4 @@ core.setup(
     scene_loading,
 )
 
-core.runner.run()
+runner.run()

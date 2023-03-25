@@ -10,6 +10,7 @@ interface Core {
     draw: CoreDraw
     scene: CoreSceneManager
     runner: CoreRunner
+    loader: CoreLoader
 }
 
 declare const core: Core

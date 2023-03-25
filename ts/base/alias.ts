@@ -4,4 +4,6 @@ const {
     time,
     draw,
     scene,
+    runner,
+    loader,
 } = core
