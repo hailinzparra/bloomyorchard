@@ -1,2 +1,5 @@
 'core/core'
-'base/base'
+'core/stage'
+'core/setup'
+
+'base/setup'
