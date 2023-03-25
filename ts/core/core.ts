@@ -6,6 +6,8 @@ interface Core {
     ): void
     stage: CoreStage
     input: CoreInput
+    time: CoreTime
+    runner: CoreRunner
 }
 
 declare const core: Core
