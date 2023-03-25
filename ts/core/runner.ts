@@ -9,7 +9,9 @@ core.runner = {
     is_running: false,
     step(t = 0) {
         core.time.update(t)
-        console.log(core.time.fps)
+        core.scene.update()
+        core.stage.clear()
+        core.scene.render()
         core.input.reset()
     },
     run() {
