@@ -13,11 +13,14 @@ class Fruit extends CoreObject {
         this.xs = 0.925 + 0.15 * Math.random()
         this.ys = this.xs
     }
+    update_physics() {
+        this.x += this.vx * time.scaled_dt
+        this.y += this.vy * time.scaled_dt
+        this.vy += this.gravity * time.scaled_dt
+        this.angle_deg += this.vx * time.scaled_dt
+    }
     update() {
-        this.x += this.vx
-        this.y += this.vy
-        this.vy += this.gravity
-        this.angle_deg += this.vx
+        this.update_physics()
         if (this.y > stage.h) {
             obj.remove(this.id)
         }

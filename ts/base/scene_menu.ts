@@ -14,6 +14,7 @@ scene_menu.update = () => {
         n.vy = -(22 + 5 * Math.random())
         console.log('apple')
     }
+    console.log(time.scaled_dt)
 }
 
 scene_menu.render = () => {

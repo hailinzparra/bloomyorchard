@@ -18,6 +18,6 @@ core.time = {
         this.t = t
         this.dt = this.t - this.last_time
         this.fps = 1000 / this.dt
-        this.scaled_dt = 1000 / 60 / this.dt
+        this.scaled_dt = this.dt / (1000 / 60)
     },
 }
