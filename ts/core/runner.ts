@@ -10,8 +10,11 @@ core.runner = {
     step(t = 0) {
         core.time.update(t)
         core.scene.update()
+        core.obj.update_all()
         core.stage.clear()
         core.scene.render()
+        core.obj.render_all()
+        core.scene.render_ui()
         core.input.reset()
     },
     run() {

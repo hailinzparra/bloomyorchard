@@ -9,6 +9,7 @@ interface Core {
     time: CoreTime
     draw: CoreDraw
     scene: CoreSceneManager
+    obj: CoreObjectManager
     runner: CoreRunner
     loader: CoreLoader
 }

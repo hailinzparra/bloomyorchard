@@ -5,9 +5,16 @@ scene_menu.start = () => {
 }
 
 scene_menu.update = () => {
+    if (input.mouse_down(0)) {
+        const n = obj.instantiate('apple', new Apple(stage.get_random_x(), stage.h))
+        console.log(n.x, n.y)
+        const xdif = n.x - stage.mid.w
+        const x_knock_off = ((stage.mid.w - Math.abs(xdif)) / stage.mid.w)
+        n.vx = xdif * (0.2 + 0.8 * x_knock_off) * -0.05
+        n.vy = -(22 + 5 * Math.random())
+        console.log('apple')
+    }
 }
 
 scene_menu.render = () => {
-    draw.rect(input.mouse_x, input.mouse_y, 32, 32)
-    draw.image_ext((Math.round(time.t / 500) % 2 === 0) ? 'apple_slice0' : 'apple_intact0', input.mouse_x, input.mouse_y, 1 + 0.2 * Math.sin(time.t / 1000), 1 + 0.2 * Math.cos(time.t / 20000), time.t / 30, 0.8)
 }

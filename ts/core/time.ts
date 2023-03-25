@@ -3,6 +3,7 @@ interface CoreTime {
     dt: number
     last_time: number
     fps: number
+    scaled_dt: number
     update(t: number): void
 }
 
@@ -11,10 +12,12 @@ core.time = {
     dt: 0,
     last_time: 0,
     fps: 0,
+    scaled_dt: 0,
     update(t) {
         this.last_time = this.t
         this.t = t
         this.dt = this.t - this.last_time
         this.fps = 1000 / this.dt
+        this.scaled_dt = 1000 / 60 / this.dt
     },
 }

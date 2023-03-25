@@ -17,6 +17,8 @@ interface CoreStage {
     apply_pixel_ratio(): void
     resize_event(): void
     clear(): void
+    get_random_x(): number
+    get_random_y(): number
 }
 
 core.stage = {
@@ -55,5 +57,11 @@ core.stage = {
     },
     clear() {
         this.canvas.getContext('2d')!.clearRect(0, 0, this.w, this.h)
+    },
+    get_random_x() {
+        return this.w * Math.random()
+    },
+    get_random_y() {
+        return this.h * Math.random()
     },
 }

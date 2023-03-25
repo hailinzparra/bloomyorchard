@@ -5,6 +5,7 @@ interface CoreSceneManager {
     change_scene(new_scene: CoreScene): void
     update(): void
     render(): void
+    render_ui(): void
 }
 
 class CoreScene {
@@ -12,6 +13,7 @@ class CoreScene {
     start() { }
     update() { }
     render() { }
+    render_ui() { }
 }
 
 core.scene = {
@@ -30,6 +32,9 @@ core.scene = {
     },
     render() {
         this.current_scene.render()
+    },
+    render_ui() {
+        this.current_scene.render_ui()
     },
 }
 
