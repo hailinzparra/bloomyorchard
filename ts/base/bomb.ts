@@ -1,7 +1,7 @@
 class Bomb extends Fruit {
     constructor(x: number, y: number) {
         super(x, y, 'bomb_intact0')
-        this.hit_range = 64
+        this.hit_range = 50
     }
     slice() {
         obj.remove(this.id)

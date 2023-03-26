@@ -4,6 +4,7 @@
 'core/stage'
 'core/input'
 'core/time'
+'core/font'
 'core/draw'
 'core/scene'
 'core/obj'
@@ -20,6 +21,7 @@
 'base/explosion'
 
 'base/scene_loading'
+'base/scene_game.class'
 'base/scene_game'
 
 'base/setup'

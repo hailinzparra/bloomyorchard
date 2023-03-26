@@ -8,6 +8,7 @@ class Fruit extends CoreObject {
     alpha: number = 1
     gravity: number = 0.42
     hit_range: number = 100
+    score: number = 0
     constructor(x: number, y: number, image_name: string) {
         super(x, y)
         this.image_name = image_name

@@ -3,6 +3,7 @@ interface CoreDraw {
     DEG_TO_RAD: number
     RAD_TO_DEG: number
     ctx: CanvasRenderingContext2D
+    text_height: number
     images: { [name: string]: { origin: CoreVec2, image: HTMLImageElement } }
     strips: {
         [name: string]: {
@@ -13,6 +14,15 @@ interface CoreDraw {
             image_height: number,
         }
     }
+    set_color(fill: string, stroke?: string): void
+    set_font(font: CoreFont): void
+    set_halign(align: CanvasTextAlign): void
+    set_valign(align: CanvasTextBaseline): void
+    set_hvalign(halign: CanvasTextAlign, valign: CanvasTextBaseline): void
+    split_text(text: string): string[]
+    text(x: number, y: number, text: string): void
+    get_text_width(text: string): number
+    get_text_height(text: string): number
     add_image(origin: CoreVec2, name: string, image: HTMLImageElement): HTMLImageElement
     add_strip(origin: CoreVec2, name: string, image: HTMLImageElement, image_number: number): HTMLImageElement
     set_alpha(a: number): void
@@ -43,8 +53,51 @@ core.draw = {
     DEG_TO_RAD: Math.PI / 180,
     RAD_TO_DEG: 180 / Math.PI,
     ctx: core.stage.canvas.getContext('2d')!,
+    text_height: 10,
     images: {},
     strips: {},
+    set_color(fill, stroke) {
+        this.ctx.fillStyle = fill
+        this.ctx.strokeStyle = stroke || fill
+    },
+    set_font(font) {
+        this.ctx.font = `${font.style}${font.size}px ${font.family}, serif`
+        this.text_height = font.size
+    },
+    set_halign(align) {
+        this.ctx.textAlign = align
+    },
+    set_valign(align) {
+        this.ctx.textBaseline = align
+    },
+    set_hvalign(halign, valign) {
+        this.ctx.textAlign = halign
+        this.ctx.textBaseline = valign
+    },
+    split_text(text) {
+        return ('' + text).split('\n')
+    },
+    text(x, y, text) {
+        let baseline = 0
+        const t = this.split_text(text)
+        switch (this.ctx.textBaseline) {
+            case 'bottom':
+                baseline = -this.text_height * (t.length - 1)
+                break
+            case 'middle':
+                baseline = -this.text_height * (t.length - 1) * 0.5
+                break
+        }
+        for (let i = t.length - 1; i >= 0; --i) {
+            this.ctx.fillText(t[i], x, y + baseline + this.text_height * i)
+        }
+    },
+    get_text_width(text) {
+        return Math.max(...this.split_text(text).map(x => this.ctx.measureText(x).width))
+    },
+    get_text_height(text) {
+        return this.text_height * this.split_text(text).length
+    },
     add_image(origin, name, image) {
         this.images[name] = {
             origin,

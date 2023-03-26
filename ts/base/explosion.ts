@@ -1,7 +1,7 @@
 class Explosion extends CoreObject {
     counter: number = 0
     image_index: number = 0
-    image_interval: number = 70
+    image_interval: number = 80
     constructor(x: number, y: number) {
         super(x, y)
         this.depth = -1

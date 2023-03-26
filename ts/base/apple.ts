@@ -4,6 +4,7 @@ class Apple extends Fruit {
         this.hit_range = 64
         this.xs *= 0.9
         this.ys *= 0.9
+        this.score = 7
     }
     slice() {
         obj.remove(this.id)
