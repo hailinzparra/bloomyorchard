@@ -33,15 +33,15 @@ class CoreParticle {
         }
         this.speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
         this.direction_rad = Math.atan2(this.vy, this.vx)
-        this.speed += this.speed_inc
-        this.direction_rad += this.direction_rad_inc
+        this.speed += this.speed_inc * time.scaled_dt
+        this.direction_rad += this.direction_rad_inc * time.scaled_dt
         this.vx = Math.cos(this.direction_rad) * this.speed
         this.vy = Math.sin(this.direction_rad) * this.speed
-        this.vy += this.grav
+        this.vy += this.grav * time.scaled_dt
         this.vx *= this.fric
         this.vy *= this.fric
-        this.x += this.vx
-        this.y += this.vy
+        this.x += this.vx * time.scaled_dt
+        this.y += this.vy * time.scaled_dt
         return true
     }
     render() {
