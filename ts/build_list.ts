@@ -10,6 +10,7 @@
 'core/draw'
 'core/scene'
 'core/obj'
+'core/view'
 'core/particle'
 'core/runner'
 'core/loader'

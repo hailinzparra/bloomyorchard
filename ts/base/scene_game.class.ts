@@ -19,8 +19,8 @@ class SceneGameUI extends CoreObject {
         }
     }
     update() {
-        this.x += (this.xto - this.x) * this.lerp_speed
-        this.y += (this.yto - this.y) * this.lerp_speed
+        this.x += (this.xto - this.x) * this.lerp_speed * time.scaled_dt
+        this.y += (this.yto - this.y) * this.lerp_speed * time.scaled_dt
     }
     render() {
         draw.image(this.image_name, this.x, this.y)

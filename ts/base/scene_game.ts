@@ -1,4 +1,7 @@
 const scene_game = new CoreScene()
+scene_game.is_obj_render_disabled = true
+
+const view_game = CoreView.instantiate_view()
 
 type SceneGamePropsState = 'play' | 'gameover'
 
@@ -95,6 +98,9 @@ scene_game.update = () => {
                         scene_game_props.remove_lives(1)
                     }
                 }
+                if (n instanceof Bomb) {
+                    view_game.shake(1000, 8)
+                }
             }
         }
     }
@@ -109,38 +115,43 @@ scene_game.update = () => {
 }
 
 scene_game.render = () => {
+    draw.on_transform(view_game.offset_position.x, view_game.offset_position.y, 1, 1, 0, () => {
+        obj.render_all()
+    })
 }
 
 scene_game.render_ui = () => {
-    if (scene_game_props.state === 'play') {
-        obj.take('scene_game_ui').forEach(n => n.render())
+    draw.on_transform(view_game.offset_position.x, view_game.offset_position.y, 1, 1, 0, () => {
+        if (scene_game_props.state === 'play') {
+            obj.take('scene_game_ui').forEach(n => n.render())
 
-        draw.set_color('red')
-        draw.set_font(font.l)
-        draw.set_hvalign('left', 'middle')
-        draw.text(90, 40, `${scene_game_props.score}`)
+            draw.set_color('red')
+            draw.set_font(font.l)
+            draw.set_hvalign('left', 'middle')
+            draw.text(90, 40, `${scene_game_props.score}`)
 
-        draw.set_font(font.m)
-        draw.set_hvalign('left', 'top')
-        draw.text(20, 80, `Best: ${scene_game_props.best_score}`)
+            draw.set_font(font.m)
+            draw.set_hvalign('left', 'top')
+            draw.text(20, 80, `Best: ${scene_game_props.best_score}`)
 
-        if (scene_game_props.lives < 3) {
-            draw.image_transformed('bomb_life', stage.w - 96, 26, 0.7, 0.7, 0)
+            if (scene_game_props.lives < 3) {
+                draw.image_transformed('bomb_life', stage.w - 96, 26, 0.7, 0.7, 0)
+            }
+            if (scene_game_props.lives < 2) {
+                draw.image_transformed('bomb_life', stage.w - 60, 27, 0.8, 0.8, 0)
+            }
+            if (scene_game_props.lives < 1) {
+                draw.image('bomb_life', stage.w - 21, 30)
+            }
         }
-        if (scene_game_props.lives < 2) {
-            draw.image_transformed('bomb_life', stage.w - 60, 27, 0.8, 0.8, 0)
+        if (scene_game_props.state === 'gameover') {
+            scene_game_props.fruitbox.render()
+            draw.set_font(font.menu_l, { style: 'bold' })
+            draw.set_hvalign('center', 'middle')
+            draw.set_color('black')
+            draw.text(stage.mid.w, stage.mid.h, 'CLICK TO RESTART')
         }
-        if (scene_game_props.lives < 1) {
-            draw.image('bomb_life', stage.w - 21, 30)
-        }
-    }
-    if (scene_game_props.state === 'gameover') {
-        scene_game_props.fruitbox.render()
-        draw.set_font(font.menu_l, { style: 'bold' })
-        draw.set_hvalign('center', 'middle')
-        draw.set_color('black')
-        draw.text(stage.mid.w, stage.mid.h, 'CLICK TO RESTART')
-    }
+    })
 
     draw_debug()
 }

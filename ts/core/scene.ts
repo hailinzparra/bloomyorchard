@@ -10,6 +10,9 @@ interface CoreSceneManager {
 }
 
 class CoreScene {
+    is_auto_clear_stage: boolean = true
+    is_obj_update_disabled: boolean = false
+    is_obj_render_disabled: boolean = false
     constructor() { }
     start() { }
     update() { }

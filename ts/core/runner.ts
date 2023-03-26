@@ -10,10 +10,16 @@ core.runner = {
     step(t = 0) {
         core.time.update(t)
         core.scene.update()
-        core.obj.update_all()
-        core.stage.clear()
+        if (!core.scene.current_scene.is_obj_update_disabled) {
+            core.obj.update_all()
+        }
+        if (core.scene.current_scene.is_auto_clear_stage) {
+            core.stage.clear()
+        }
         core.scene.render()
-        core.obj.render_all()
+        if (!core.scene.current_scene.is_obj_render_disabled) {
+            core.obj.render_all()
+        }
         core.scene.render_ui()
         core.input.reset()
     },
