@@ -33,6 +33,7 @@ scene_menu.render_ui = () => {
 }
 
 const draw_debug = () => {
+    if (__PROD) return
     draw.set_color('black')
     draw.set_font(font.m, { size: 16, style: '', family: 'Manrope' })
     draw.set_hvalign('center', 'bottom')

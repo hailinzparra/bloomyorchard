@@ -1,3 +1,5 @@
+'core/header_defines'
+
 'core/vec2'
 
 'core/core'
