@@ -15,7 +15,11 @@ interface CoreDraw {
         }
     }
     set_color(fill: string, stroke?: string): void
-    set_font(font: CoreFont): void
+    set_font(font: CoreFont, overrides?: {
+        size?: CoreFont['size']
+        style?: CoreFont['style']
+        family?: CoreFont['family']
+    }): void
     set_halign(align: CanvasTextAlign): void
     set_valign(align: CanvasTextBaseline): void
     set_hvalign(halign: CanvasTextAlign, valign: CanvasTextBaseline): void
@@ -60,9 +64,10 @@ core.draw = {
         this.ctx.fillStyle = fill
         this.ctx.strokeStyle = stroke || fill
     },
-    set_font(font) {
-        this.ctx.font = `${font.style}${font.size}px ${font.family}, serif`
-        this.text_height = font.size
+    set_font(font, overrides = {}) {
+        const style = (typeof overrides.style === 'undefined' ? font.style : overrides.style)
+        this.ctx.font = `${style}${style ? ' ' : ''}${overrides.size || font.size}px ${overrides.family || font.family}, serif`
+        this.text_height = overrides.size || font.size
     },
     set_halign(align) {
         this.ctx.textAlign = align

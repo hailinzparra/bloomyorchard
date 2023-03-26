@@ -8,6 +8,7 @@
 'core/draw'
 'core/scene'
 'core/obj'
+'core/particle'
 'core/runner'
 'core/loader'
 'core/setup'

@@ -103,6 +103,8 @@ scene_game.update = () => {
         if (input.mouse_down(0)) {
             scene.restart()
         }
+        smoke_emitter.set_area(0, stage.h + 100, stage.w, 0)
+        smoke_emitter.emit(1)
     }
 }
 
@@ -113,6 +115,7 @@ scene_game.render_ui = () => {
     if (scene_game_props.state === 'play') {
         obj.take('scene_game_ui').forEach(n => n.render())
 
+        draw.set_color('red')
         draw.set_font(font.l)
         draw.set_hvalign('left', 'middle')
         draw.text(90, 40, `${scene_game_props.score}`)
@@ -133,8 +136,11 @@ scene_game.render_ui = () => {
     }
     if (scene_game_props.state === 'gameover') {
         scene_game_props.fruitbox.render()
-        draw.set_font(font.manrope_l)
+        draw.set_font(font.menu_l, { style: 'bold' })
         draw.set_hvalign('center', 'middle')
-        draw.text(stage.mid.w, stage.mid.h, 'Click anywhere to restart')
+        draw.set_color('black')
+        draw.text(stage.mid.w, stage.mid.h, 'CLICK TO RESTART')
     }
+
+    draw_debug()
 }

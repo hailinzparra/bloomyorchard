@@ -12,7 +12,7 @@ loader.load_image(CoreVec2.half, 'bomb_ui_box', 'assets/images/bomb_ui_box.png')
 loader.load_image(CoreVec2.half, 'bomb_life', 'assets/images/bomb_life.png')
 
 const font = {
-    m: new CoreFont(26, '', 'Ewert'),
-    l: new CoreFont(42, '', 'Ewert'),
-    manrope_l: new CoreFont(42, '', 'Manrope'),
+    m: new CoreFont(26, 'bold', 'Ewert'),
+    l: new CoreFont(42, 'bold', 'Ewert'),
+    menu_l: new CoreFont(42, '', 'Ewert'),
 }

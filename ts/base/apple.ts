@@ -17,6 +17,8 @@ class Apple extends Fruit {
             slice.vx = this.vx * 1.4 * (i === 0 ? -1 : 1)
             slice.vy = this.vy * 0.8
         }
+        slice_emitter.set_colors('#e93b32', '#f15746', '#f15746')
+        this.emit_puff()
         console.log('sliced!')
     }
 }
@@ -25,6 +27,7 @@ class AppleSlice extends Apple {
     constructor(x: number, y: number) {
         super(x, y)
         this.image_name = 'apple_slice0'
+        this.depth = 1
     }
 }
 
