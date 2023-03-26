@@ -21,6 +21,7 @@
 'base/explosion'
 
 'base/scene_loading'
+'base/scene_menu'
 'base/scene_game.class'
 'base/scene_game'
 

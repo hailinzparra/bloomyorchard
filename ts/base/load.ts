@@ -9,8 +9,10 @@ loader.load_strip(CoreVec2.half, 'explosion', 'assets/images/explosion_strip8.pn
 loader.load_image(CoreVec2.half, 'fruitbox', 'assets/images/fruitbox.png')
 loader.load_image(CoreVec2.half, 'fruit_coin', 'assets/images/fruit_coin.png')
 loader.load_image(CoreVec2.half, 'bomb_ui_box', 'assets/images/bomb_ui_box.png')
+loader.load_image(CoreVec2.half, 'bomb_life', 'assets/images/bomb_life.png')
 
 const font = {
     m: new CoreFont(26, '', 'Ewert'),
     l: new CoreFont(42, '', 'Ewert'),
+    manrope_l: new CoreFont(42, '', 'Manrope'),
 }

@@ -5,8 +5,8 @@ scene_loading.start = () => {
 }
 
 scene_loading.render = () => {
-    draw.rect(0, 0, stage.w * loader.get_load_progress(), 16)
+    draw.rect(0, stage.h - 16, stage.w * loader.get_load_progress(), 16)
     if (loader.is_loaded) {
-        scene.change_scene(scene_game)
+        scene.change_scene(scene_menu)
     }
 }

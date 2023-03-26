@@ -3,6 +3,7 @@ interface CoreSceneManager {
     current_scene: CoreScene
     previous_scene: CoreScene
     change_scene(new_scene: CoreScene): void
+    restart(): void
     update(): void
     render(): void
     render_ui(): void
@@ -24,8 +25,11 @@ core.scene = {
         this.previous_scene = this.current_scene
         this.current_scene = new_scene
         if (this.current_scene !== this.previous_scene) {
-            this.current_scene.start()
+            this.restart()
         }
+    },
+    restart() {
+        this.current_scene.start()
     },
     update() {
         this.current_scene.update()
