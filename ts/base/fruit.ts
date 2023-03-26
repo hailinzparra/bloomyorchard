@@ -15,6 +15,7 @@ class Fruit extends CoreObject {
         this.xs = 0.925 + 0.15 * Math.random()
         this.ys = this.xs
     }
+    slice() { }
     update_physics() {
         this.x += this.vx * time.scaled_dt
         this.y += this.vy * time.scaled_dt

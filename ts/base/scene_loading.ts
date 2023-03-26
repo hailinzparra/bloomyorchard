@@ -1,7 +1,6 @@
 const scene_loading = new CoreScene()
 
 scene_loading.start = () => {
-    console.log('start loading')
 }
 
 scene_loading.render = () => {

@@ -30,6 +30,7 @@ class CoreObject {
     pre_update() { }
     update() { }
     post_update() { }
+    inactive_update() { }
     render() { }
 }
 
@@ -52,6 +53,9 @@ core.obj = {
                     // Check if instance is not removed
                     if (this.instances[i][j]) this.instances[i][j].update()
                     if (this.instances[i][j]) this.instances[i][j].post_update()
+                }
+                else {
+                    this.instances[i][j].inactive_update()
                 }
             }
         }

@@ -21,6 +21,9 @@
 
 'base/fruit'
 'base/apple'
+'base/orange'
+'base/pear'
+'base/banana'
 'base/bomb'
 'base/explosion'
 

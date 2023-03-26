@@ -3,6 +3,20 @@ loader.load_image(CoreVec2.half, 'apple_slice0', 'assets/images/apple_slice0.png
 loader.load_image(CoreVec2.half, 'apple_slice1', 'assets/images/apple_slice1.png')
 loader.load_image(CoreVec2.half, 'apple_seed0', 'assets/images/apple_seed0.png')
 
+loader.load_image(new CoreVec2(0.624, 0.585), 'orange_intact0', 'assets/images/orange_intact0.png')
+loader.load_image(new CoreVec2(0.624, 0.585), 'orange_slice0', 'assets/images/orange_slice0.png')
+loader.load_image(new CoreVec2(0.624, 0.585), 'orange_slice1', 'assets/images/orange_slice1.png')
+
+loader.load_image(CoreVec2.half, 'pear_intact0', 'assets/images/pear_intact0.png')
+loader.load_image(CoreVec2.half, 'pear_slice0', 'assets/images/pear_slice0.png')
+loader.load_image(CoreVec2.half, 'pear_slice1', 'assets/images/pear_slice1.png')
+loader.load_image(CoreVec2.half, 'pear_slice2', 'assets/images/pear_slice2.png')
+loader.load_image(CoreVec2.half, 'pear_slice3', 'assets/images/pear_slice3.png')
+
+loader.load_image(CoreVec2.half, 'banana_intact0', 'assets/images/banana_intact0.png')
+loader.load_image(CoreVec2.half, 'banana_slice0', 'assets/images/banana_slice0.png')
+loader.load_image(CoreVec2.half, 'banana_slice1', 'assets/images/banana_slice1.png')
+
 loader.load_image(CoreVec2.half, 'bomb_intact0', 'assets/images/bomb_intact0.png')
 loader.load_strip(CoreVec2.half, 'explosion', 'assets/images/explosion_strip8.png', 8)
 

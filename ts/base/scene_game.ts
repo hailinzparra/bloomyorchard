@@ -19,6 +19,19 @@ const scene_game_props = {
     fruitbox: obj.instantiate('scene_game_ui', new SceneGameUI(0, 0, 'fruitbox')),
     fruit_coin: obj.instantiate('scene_game_ui', new SceneGameUI(0, 0, 'fruit_coin')),
     bomb_ui_box: obj.instantiate('scene_game_ui', new SceneGameUI(0, 0, 'bomb_ui_box')),
+    fruit_spawn_list: ['apple', 'orange', 'pear', 'banana'],
+    spawn_random_fruit() {
+        const name = this.fruit_spawn_list[Math.floor(Math.random() * this.fruit_spawn_list.length)]
+        switch (name) {
+            case 'orange':
+                return obj.instantiate('orange', new Orange(stage.get_random_x(), stage.h))
+            case 'pear':
+                return obj.instantiate('pear', new Pear(stage.get_random_x(), stage.h))
+            case 'banana':
+                return obj.instantiate('banana', new Banana(stage.get_random_x(), stage.h))
+        }
+        return obj.instantiate('apple', new Apple(stage.get_random_x(), stage.h))
+    },
     change_state(new_state: SceneGamePropsState) {
         this.state = new_state
     },
@@ -70,24 +83,23 @@ scene_game.update = () => {
     if (scene_game_props.state === 'play') {
         scene_game_props.spawn_counter += time.dt
         if (scene_game_props.spawn_counter > scene_game_props.spawn_interval) {
-            let n: Apple | Bomb
-            if (Math.random() > scene_game_props.bomb_prob) {
-                n = obj.instantiate('apple', new Apple(stage.get_random_x(), stage.h))
+            const fruits_to_spawn: Fruit[] = []
+            fruits_to_spawn.push(scene_game_props.spawn_random_fruit())
+            if (Math.random() <= scene_game_props.bomb_prob) {
+                fruits_to_spawn.push(obj.instantiate('bomb', new Bomb(stage.get_random_x(), stage.h, scene_game_props.spawn_interval / 2)))
             }
-            else {
-                n = obj.instantiate('bomb', new Bomb(stage.get_random_x(), stage.h))
+            for (const n of fruits_to_spawn) {
+                const xdif = n.x - stage.mid.w
+                const x_knock_off = ((stage.mid.w - Math.abs(xdif)) / stage.mid.w)
+                n.vx = xdif * (0.2 + 0.8 * x_knock_off) * -0.05
+                n.vy = -(22 + 5 * Math.random())
             }
-            const xdif = n.x - stage.mid.w
-            const x_knock_off = ((stage.mid.w - Math.abs(xdif)) / stage.mid.w)
-            n.vx = xdif * (0.2 + 0.8 * x_knock_off) * -0.05
-            n.vy = -(22 + 5 * Math.random())
-
             scene_game_props.spawn_counter = 0
         }
     }
     // Slice logic
     if (input.mouse_hold(0)) {
-        const sliceables = obj.take('apple', 'bomb') as (Apple | Bomb)[]
+        const sliceables = obj.take('apple', 'orange', 'pear', 'banana', 'bomb') as Fruit[]
         for (const n of sliceables) {
             const distance_to_mouse = Math.hypot(n.x - input.mouse_x, n.y - input.mouse_y)
             if (distance_to_mouse < n.hit_range * n.xs) {
@@ -132,7 +144,7 @@ scene_game.render_ui = () => {
 
             draw.set_font(font.m)
             draw.set_hvalign('left', 'top')
-            draw.text(20, 80, `Best: ${scene_game_props.best_score}`)
+            // draw.text(20, 80, `Best: ${scene_game_props.best_score}`)
 
             if (scene_game_props.lives < 3) {
                 draw.image_transformed('bomb_life', stage.w - 96, 26, 0.7, 0.7, 0)
@@ -146,6 +158,12 @@ scene_game.render_ui = () => {
         }
         if (scene_game_props.state === 'gameover') {
             scene_game_props.fruitbox.render()
+
+            draw.set_font(font.menu_l, { size: 64, style: 'bold' })
+            draw.set_hvalign('center', 'middle')
+            draw.set_color('red')
+            draw.text(stage.mid.w, stage.mid.h / 2, `${scene_game_props.score}`)
+
             draw.set_font(font.menu_l, { style: 'bold' })
             draw.set_hvalign('center', 'middle')
             draw.set_color('black')
