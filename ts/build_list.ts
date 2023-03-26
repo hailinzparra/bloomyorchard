@@ -16,8 +16,10 @@
 
 'base/fruit'
 'base/apple'
+'base/bomb'
+'base/explosion'
 
 'base/scene_loading'
-'base/scene_menu'
+'base/scene_game'
 
 'base/setup'

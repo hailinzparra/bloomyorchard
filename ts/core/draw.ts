@@ -4,7 +4,17 @@ interface CoreDraw {
     RAD_TO_DEG: number
     ctx: CanvasRenderingContext2D
     images: { [name: string]: { origin: CoreVec2, image: HTMLImageElement } }
+    strips: {
+        [name: string]: {
+            origin: CoreVec2,
+            image: HTMLImageElement,
+            image_number: number,
+            image_width: number,
+            image_height: number,
+        }
+    }
     add_image(origin: CoreVec2, name: string, image: HTMLImageElement): HTMLImageElement
+    add_strip(origin: CoreVec2, name: string, image: HTMLImageElement, image_number: number): HTMLImageElement
     set_alpha(a: number): void
     reset_alpha(): void
     /**
@@ -15,6 +25,7 @@ interface CoreDraw {
      * Draw image from storage
      */
     image(name: string, x: number, y: number): void
+    strip(name: string, image_index: number, x: number, y: number): void
     draw(is_stroke?: boolean): void
     rect(x: number, y: number, w: number, h: number, is_stroke?: boolean): void
     circle(x: number, y: number, r: number, is_stroke?: boolean): void
@@ -22,6 +33,9 @@ interface CoreDraw {
     image_transformed(name: string, x: number, y: number, xscale: number, yscale: number, angle_deg: number): void
     image_rotated(name: string, x: number, y: number, angle_deg: number): void
     image_ext(name: string, x: number, y: number, xscale: number, yscale: number, angle_deg: number, alpha: number): void // to add: blend mode
+    strip_transformed(name: string, image_index: number, x: number, y: number, xscale: number, yscale: number, angle_deg: number): void
+    strip_rotated(name: string, image_index: number, x: number, y: number, angle_deg: number): void
+    strip_ext(name: string, image_index: number, x: number, y: number, xscale: number, yscale: number, angle_deg: number, alpha: number): void
 }
 
 core.draw = {
@@ -30,12 +44,25 @@ core.draw = {
     RAD_TO_DEG: 180 / Math.PI,
     ctx: core.stage.canvas.getContext('2d')!,
     images: {},
+    strips: {},
     add_image(origin, name, image) {
         this.images[name] = {
             origin,
             image,
         }
         return this.images[name].image
+    },
+    add_strip(origin, name, image, image_number) {
+        const image_width = image.width / image_number
+        const image_height = image.height
+        this.strips[name] = {
+            origin,
+            image,
+            image_number,
+            image_width,
+            image_height,
+        }
+        return this.strips[name].image
     },
     set_alpha(a) {
         this.ctx.globalAlpha = a
@@ -51,6 +78,13 @@ core.draw = {
     image(name, x, y) {
         const img = this.images[name]
         this.image_el(img.image, x, y, img.origin)
+    },
+    strip(name, image_index, x, y) {
+        const img = this.strips[name]
+        image_index = image_index % img.image_number
+        x -= img.image_width * img.origin.x
+        y -= img.image_height * img.origin.y
+        this.ctx.drawImage(img.image, image_index * img.image_width, 0, img.image_width, img.image_height, x, y, img.image_width, img.image_height)
     },
     draw(is_stroke = false) {
         is_stroke ? this.ctx.stroke() : this.ctx.fill()
@@ -82,6 +116,17 @@ core.draw = {
     image_ext(name, x, y, xscale, yscale, angle_deg, alpha) {
         this.set_alpha(alpha)
         this.image_transformed(name, x, y, xscale, yscale, angle_deg)
+        this.reset_alpha()
+    },
+    strip_transformed(name, image_index, x, y, xscale, yscale, angle_deg) {
+        this.on_transform(x, y, xscale, yscale, angle_deg, () => this.strip(name, image_index, 0, 0))
+    },
+    strip_rotated(name, image_index, x, y, angle_deg) {
+        this.strip_transformed(name, image_index, x, y, 1, 1, angle_deg)
+    },
+    strip_ext(name, image_index, x, y, xscale, yscale, angle_deg, alpha) {
+        this.set_alpha(alpha)
+        this.strip_transformed(name, image_index, x, y, xscale, yscale, angle_deg)
         this.reset_alpha()
     },
 }

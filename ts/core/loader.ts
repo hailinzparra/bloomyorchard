@@ -5,6 +5,7 @@ interface CoreLoader {
     get_load_progress(): number
     set_image_load_event(img: HTMLImageElement): void
     load_image(origin: CoreVec2, name: string, src: string): void
+    load_strip(origin: CoreVec2, name: string, src: string, image_number: number): void
 }
 
 core.loader = {
@@ -27,6 +28,12 @@ core.loader = {
         const img = new Image()
         img.src = src
         core.draw.add_image(origin, name, img)
+        this.set_image_load_event(img)
+    },
+    load_strip(origin, name, src, image_number) {
+        const img = new Image()
+        img.src = src
+        core.draw.add_strip(origin, name, img, image_number)
         this.set_image_load_event(img)
     },
 }
